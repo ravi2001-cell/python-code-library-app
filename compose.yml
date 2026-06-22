@@ -1,7 +1,7 @@
 ---
 services:
   db:
-    image: shaikmustafa/pyapp:db_image
+    image: rkdocker1800/library:db_image
     deploy:
       replicas: 1
     ports:
@@ -10,7 +10,7 @@ services:
       - mynetwork
 
   auth_service:
-    image: shaikmustafa/pyapp:auth_image
+    image: rkdocker1800/library:auth_image
     deploy:
       replicas: 1
     ports:
@@ -22,7 +22,7 @@ services:
     
 
   book_service:
-    image: shaikmustafa/pyapp:book_image
+    image: rkdocker1800/library:book_image
     deploy:
       replicas: 1
     ports:
@@ -32,7 +32,7 @@ services:
     depends_on:
       - db
   borrow_service:
-    image: shaikmustafa/pyapp:borrow_image
+    image: rkdocker1800/library:borrow_image
     deploy:
       replicas: 1
     ports:
@@ -43,7 +43,7 @@ services:
       - db
 
   frontend:
-    image: shaikmustafa/pyapp:frontend
+    image: rkdocker1800/library:frontend
     deploy:
       replicas: 1
     ports:
