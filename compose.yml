@@ -43,7 +43,7 @@ services:
       - db
 
   frontend:
-    image: rkdocker1800/library:frontend
+    image: rkdocker1800/library:frontend_image
     deploy:
       replicas: 1
     ports:
