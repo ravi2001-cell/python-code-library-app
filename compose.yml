@@ -1,9 +1,74 @@
----
+# ---
+# services:
+#   db:
+#     image: rkdocker1800/library:db_image
+#     deploy:
+#       replicas: 1
+#     ports:
+#       - "3306:3306"
+#     networks:
+#       - mynetwork
+
+#   auth_service:
+#     image: rkdocker1800/library:auth_image
+#     deploy:
+#       replicas: 1
+#     ports:
+#       - "5001:5001"
+#     networks:
+#       - mynetwork
+#     depends_on:
+#       - db
+    
+
+#   book_service:
+#     image: rkdocker1800/library:book_image
+#     deploy:
+#       replicas: 1
+#     ports:
+#       - "5002:5002"
+#     networks:
+#       - mynetwork
+#     depends_on:
+#       - db
+#   borrow_service:
+#     image: rkdocker1800/library:borrow_image
+#     deploy:
+#       replicas: 1
+#     ports:
+#       - "5003:5003"
+#     networks:
+#       - mynetwork
+#     depends_on:
+#       - db
+
+#   frontend:
+#     image: rkdocker1800/library:frontend_image
+#     deploy:
+#       replicas: 1
+#     ports:
+#       - "5000:5000"
+#     networks:
+#       - mynetwork
+#     depends_on:
+#       - auth
+#       - book
+#       - borrow
+
+# networks:
+#   mynetwork:
+#     driver: bridge
+
+
+
+
+
+
+version: '3.8'
+
 services:
   db:
     image: rkdocker1800/library:db_image
-    deploy:
-      replicas: 1
     ports:
       - "3306:3306"
     networks:
@@ -11,30 +76,24 @@ services:
 
   auth_service:
     image: rkdocker1800/library:auth_image
-    deploy:
-      replicas: 1
     ports:
       - "5001:5001"
     networks:
       - mynetwork
     depends_on:
       - db
-    
 
   book_service:
     image: rkdocker1800/library:book_image
-    deploy:
-      replicas: 1
     ports:
       - "5002:5002"
     networks:
       - mynetwork
     depends_on:
       - db
+
   borrow_service:
     image: rkdocker1800/library:borrow_image
-    deploy:
-      replicas: 1
     ports:
       - "5003:5003"
     networks:
@@ -44,17 +103,15 @@ services:
 
   frontend:
     image: rkdocker1800/library:frontend_image
-    deploy:
-      replicas: 1
     ports:
       - "5000:5000"
     networks:
       - mynetwork
     depends_on:
-      - auth
-      - book
-      - borrow
+      - auth_service   # FIXED: Changed from 'auth' to 'auth_service'
+      - book_service   # FIXED: Changed from 'book' to 'book_service'
+      - borrow_service # FIXED: Changed from 'borrow' to 'borrow_service'
 
 networks:
   mynetwork:
-    driver: bridge
+    driver: bridge     # FIXED: Changed from 'overlay' to 'bridge'
